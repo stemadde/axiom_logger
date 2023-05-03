@@ -18,6 +18,7 @@ When instanciating the handler, you must pass the following arguments:
 
 ```python
 import logging
+import os
 from axiom_logger import AxiomHandler
 
 logger = logging.getLogger(__name__)

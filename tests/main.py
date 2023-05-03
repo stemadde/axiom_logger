@@ -1,5 +1,5 @@
 import os
-from src.axiom_logger_stemadde.axiom_logger import AxiomHandler
+from src.axiom_logger import AxiomHandler
 import logging
 
 logger = logging.getLogger('simple_example')
