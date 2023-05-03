@@ -100,5 +100,4 @@ class AxiomHandler(Handler):
         res = self.session.post(self.endpoint, json=self.record_pool)
         if res.status_code == 200:
             self.record_pool = []
-            print('Sent record pool')
         self.is_sending = False
