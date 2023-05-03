@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "axiom_logger"
-version = "0.0.2"
+version = "1.0.0"
 authors = [
   { name="Stefano Maddè", email="sm@spforniture.it" },
 ]
