@@ -6,8 +6,8 @@ logger = logging.getLogger('simple_example')
 logger.setLevel(logging.DEBUG)
 # create console handler with a higher log level
 ch = AxiomHandler(
-    os.environ.get('dataset', 'test'),
-    os.environ.get('api_token', None)
+    os.environ.get('AXIOM_DATASET', 'test'),
+    os.environ.get('AXIOM_API_TOKEN', None)
 )
 
 ch.setLevel(logging.DEBUG)
