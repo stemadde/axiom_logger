@@ -5,7 +5,7 @@ Python logging handler for the Axiom service
 ## Installation
 
 ```
-pip install axiom_logger
+pip install axiom-logger
 ```
 
 ## Usage
