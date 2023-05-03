@@ -5,18 +5,18 @@ import logging
 logger = logging.getLogger('simple_example')
 logger.setLevel(logging.DEBUG)
 # create console handler with a higher log level
-ch = AxiomHandler(
+ah = AxiomHandler(
     os.environ.get('AXIOM_DATASET', 'test'),
     os.environ.get('AXIOM_API_TOKEN', None)
 )
 
-ch.setLevel(logging.DEBUG)
+ah.setLevel(logging.DEBUG)
 # create formatter and add it to the handlers
 formatter = logging.Formatter(
     '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
+ah.setFormatter(formatter)
 # add the handlers to logger
-logger.addHandler(ch)
+logger.addHandler(ah)
 
 
 def main():
