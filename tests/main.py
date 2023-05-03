@@ -1,6 +1,5 @@
 import os
 import time
-
 from src.axiom_logger import AxiomHandler
 import logging
 
