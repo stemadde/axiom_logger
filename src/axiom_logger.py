@@ -1,6 +1,8 @@
 import atexit
 import threading
 import time
+import warnings
+from datetime import datetime
 import requests
 from logging import LogRecord, Formatter, Handler
 from typing import Literal
@@ -17,15 +19,15 @@ class AxiomHandler(Handler):
             api_token: str,
             api_url=AXIOM_V1,
             mode: Literal['elapsed_time', 'log_count'] = 'elapsed_time',
-            elapsed_time: int = 10,
-            log_count: int = 5,
+            elapsed_time: float = 10,
+            log_count: int = 5
     ):
         """
         :param dataset: Name of the remote dataset to log to
         :param api_token: API token used for authentication against the Axiom remote service
         :param api_url: Override this value if you are using a different version of the Axiom API
         :param mode: Defaults to "elapsed_time" which will send logs every elapsed_time seconds.
-        Can be changed to "log_count" which will send logs every log_count sent logs.
+            Can be changed to "log_count" which will send logs every log_count sent logs.
         :param elapsed_time: Time in seconds to wait before sending logs. Only used if mode is "elapsed_time"
         :param log_count: Count of logs to wait before sending logs. Only used if mode is "log_count"
         """
@@ -98,6 +100,18 @@ class AxiomHandler(Handler):
             return
         self.is_sending = True
         res = self.session.post(self.endpoint, json=self.record_pool)
-        if res.status_code == 200:
-            self.record_pool = []
+        if not res.status_code == 200:
+            not_logged_records = '\n'.join(
+                f"{datetime.fromtimestamp(record['_time'])} -> {record['data']}" for record in self.record_pool
+            )
+            warnings.warn(
+                f'Failed to send logs to Axiom.\n'
+                f'Status code: {res.status_code}\n'
+                f'Response: {res.text}\n'
+                f'==== Begin of unsent records ===='
+                f'\n{not_logged_records}\n'
+                f'==== End of unsent records ====',
+                RuntimeWarning
+            )
+        self.record_pool = []
         self.is_sending = False
