@@ -21,7 +21,7 @@ jobs:
         pip install -r requirements.txt
     - name: Build
       run: |
-        python build
+        python -m build
     - name: Publish
       env:
         TWINE_USERNAME: __token__
