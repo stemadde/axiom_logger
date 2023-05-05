@@ -90,10 +90,12 @@ class AxiomHandler(Handler):
                 self.timer.start()
 
     def axiom_format(self, record: LogRecord) -> dict:
-        return {
+        dict_ = {
             "_time": record.created,
-            "data": record.getMessage(),
+            "formatted_message": self.format(record),
         }
+        dict_.update(record.__dict__)
+        return dict_
 
     def send(self) -> None:
         if not self.record_pool:
